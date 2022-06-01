@@ -18,7 +18,7 @@ function computerPlay(){
 //winner of the round
 
 //Create a function named evaluateRound
-function evaluateRound(playerSelection, computerSelection){
+function playRound(playerSelection, computerSelection){
 //check for the conditions(game rules)
 //return a appropriate string according to the rules
     playerSelection = playerSelection.toLowerCase();
@@ -27,15 +27,18 @@ function evaluateRound(playerSelection, computerSelection){
         case "rock":{
             switch(computerSelection){
                 case "rock":{
-                    return `${playerSelection} and ${computerSelection}: Draw!`
+                    console.log(`${playerSelection} and ${computerSelection}: Draw!`);
+                    return 0;
                 }
                             
                 case "paper":{
-                    return `You Lose! ${computerSelection} beats ${playerSelection}`
+                    console.log(`You Lose! ${computerSelection} beats ${playerSelection}`);;
+                    return -1;
                 }
                             
                 case "scissor":{
-                    return `You Win! ${playerSelection} beats ${computerSelection}`
+                    console.log(`You Win! ${playerSelection} beats ${computerSelection}`);
+                    return 1;
                 }
                              
             }
@@ -43,16 +46,19 @@ function evaluateRound(playerSelection, computerSelection){
         case "paper":{
             switch(computerSelection){
                 case "rock":{
-                    return `You Win! ${playerSelection} beats ${computerSelection}`
+                    console.log(`You Win! ${playerSelection} beats ${computerSelection}`);
+                    return 1;
 
                 }
                         
                 case "paper":{
-                    return `${playerSelection} and ${computerSelection}: Draw!`
+                    console.log(`${playerSelection} and ${computerSelection}: Draw!`);
+                    return 0;
                 }
                         
                 case "scissor":{
-                    return `You Lose! ${computerSelection} beats ${playerSelection}`
+                    console.log(`You Lose! ${computerSelection} beats ${playerSelection}`);
+                    return -1;
 
                 }
                          
@@ -62,24 +68,57 @@ function evaluateRound(playerSelection, computerSelection){
         case "scissor":{
             switch(computerSelection){
                 case "rock":{
-                    return `You Lose! ${computerSelection} beats ${playerSelection}`
+                    console.log(`You Lose! ${computerSelection} beats ${playerSelection}`);
+                    return -1;
                 }
                         
                 case "paper":{
-                    return `You win! ${playerSelection} beats ${computerSelection}`
+                    console.log(`You win! ${playerSelection} beats ${computerSelection}`);
+                    return 1;
 
 
                 }
                         
                 case "scissor":{
-                    return `${playerSelection} and ${computerSelection}: Draw!`
+                    console.log(`${playerSelection} and ${computerSelection}: Draw!`);
+                    return 0;
                 }
                          
         }
     }
-        default: console.log("wrong input")
     }
 }
 
 
+function game(){
+    let playerScore = 0;
+    let computerScore = 0;
+    for(let i=0; i<5; i++){
 
+        let playerSelection;
+        playerSelection 
+
+         do {
+        playerSelection = prompt("Rock or Paper or Scissor");
+        if(playerSelection != null) playerSelection = playerSelection.toLowerCase();
+        } while(!(playerSelection === "rock" || playerSelection === "paper" || playerSelection === "scissor"));
+        let computerSelection = computerPlay();
+
+        let result = playRound(playerSelection, computerSelection);
+
+        switch(result){
+            case 1: playerScore++;
+                    break;
+            case -1: computerScore++;
+                    break;
+        }  
+
+    }
+    declareWinner(playerScore, computerScore);
+}
+
+function declareWinner(playerScore, computerScore){
+    if(playerScore>computerScore) console.log("You Won the Game!!!");
+    else if(playerScore<computerScore) console.log("Computer Won the Game!");
+    else console.log("The Game Ended in a Draw!!");
+}
