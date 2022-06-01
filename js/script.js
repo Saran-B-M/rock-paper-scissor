@@ -18,7 +18,7 @@ function computerPlay(){
 //winner of the round
 
 //Create a function named evaluateRound
-function playRound(playerSelection, computerSelection){
+function evaluateRound(playerSelection, computerSelection){
 //check for the conditions(game rules)
 //return a appropriate string according to the rules
     playerSelection = playerSelection.toLowerCase();
@@ -27,19 +27,15 @@ function playRound(playerSelection, computerSelection){
         case "rock":{
             switch(computerSelection){
                 case "rock":{
-                    console.log(`${playerSelection} and ${computerSelection}: Draw!`);
-                    return 0;
+                    return `${playerSelection} and ${computerSelection}: Draw!`
                 }
                             
                 case "paper":{
-                   console.log(`You Lose! ${computerSelection} beats ${playerSelection}`);
-                   return -1;
+                    return `You Lose! ${computerSelection} beats ${playerSelection}`
                 }
                             
                 case "scissor":{
-                    console.log(`You Win! ${playerSelection} beats ${computerSelection}`)
-                    return 1;
-
+                    return `You Win! ${playerSelection} beats ${computerSelection}`
                 }
                              
             }
@@ -47,19 +43,16 @@ function playRound(playerSelection, computerSelection){
         case "paper":{
             switch(computerSelection){
                 case "rock":{
-                    console.log(`You Win! ${playerSelection} beats ${computerSelection}`);
-                    return 1;
+                    return `You Win! ${playerSelection} beats ${computerSelection}`
 
                 }
                         
                 case "paper":{
-                    console.log(`${playerSelection} and ${computerSelection}: Draw!`);
-                    return 0
+                    return `${playerSelection} and ${computerSelection}: Draw!`
                 }
                         
                 case "scissor":{
-                    console.log(`You Lose! ${computerSelection} beats ${playerSelection}`);
-                    return -1;
+                    return `You Lose! ${computerSelection} beats ${playerSelection}`
 
                 }
                          
@@ -69,20 +62,17 @@ function playRound(playerSelection, computerSelection){
         case "scissor":{
             switch(computerSelection){
                 case "rock":{
-                    console.log(`You Lose! ${computerSelection} beats ${playerSelection}`);
-                    return -1;
+                    return `You Lose! ${computerSelection} beats ${playerSelection}`
                 }
                         
                 case "paper":{
-                    console.log(`You win! ${playerSelection} beats ${computerSelection}`);
-                    return 1;
+                    return `You win! ${playerSelection} beats ${computerSelection}`
 
 
                 }
                         
                 case "scissor":{
-                    console.log(`${playerSelection} and ${computerSelection}: Draw!`);
-                    return 0;
+                    return `${playerSelection} and ${computerSelection}: Draw!`
                 }
                          
         }
@@ -91,55 +81,5 @@ function playRound(playerSelection, computerSelection){
     }
 }
 
-//Testing code: playRound
-// const playerSelection = "rock";
-// const computerSelection = computerPlay();
 
-// console.log(playRound(playerSelection, computerSelection));
 
-//Create a function named game which plays 5 rounds and keeps the score for each player
-//and reports the winner at the end of the 5 rounds.
-
-//Create a function named game
-function game(){
-//play 5 rounds using a loop
-//keep score of each player 
-    let playerScore = 0;
-    let computerScore = 0;
-    for(let i=0; i<5; i++){
-        //get computer's selection
-        let computerSelection = computerPlay();
-        //get input from the user
-        let playerSelection = prompt("Rock or Paper or Scissor?");
-        //check whether the user input is valid
-        while(playerSelection == '' || playerSelection == null){
-            console.log("Wrong option! Choose again!!!");
-            playerSelection = prompt("Rock or Paper or Scissor?");      
-        }
-        //get result for the current round
-        let result = playRound("rock", computerSelection);
-        switch(result){
-            case 1: {
-                playerScore++;
-                break;
-            }
-            case -1: {
-                computerScore++;
-                break;
-            }
-        }
-    }
-//AT the end of 5 rounds, evaluate the score and report the winner
-    declareWinner(playerScore, computerScore);
-
-}
-
-function declareWinner(playerScore, computerScore) {
-    if(playerScore>computerScore){
-        console.log("You Win!!!")
-    }
-    else if(playerScore<computerScore){
-        console.log("Computer Wins!")
-    }
-    else console.log("Draw!!")
-}
