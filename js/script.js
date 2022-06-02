@@ -109,10 +109,10 @@ scissorBtn.textContent = "SCISSOR";
 scissorBtn.classList.add("scissor");
 
 //Add the buttons to the DOM
-const body = document.querySelector("body");
-body.appendChild(rockBtn);
-body.appendChild(paperBtn);
-body.appendChild(scissorBtn);
+const gameContainer = document.querySelector(".game");
+gameContainer.appendChild(rockBtn);
+gameContainer.appendChild(paperBtn);
+gameContainer.appendChild(scissorBtn);
 
 //for each button add the click event listener which and also pass the button
 //that got clicked
@@ -126,15 +126,21 @@ eventListener(scissorBtn);
 
 //with the help of the class of button clicked assign playerSelection and play 
 //round
-//At the end of every round keep the score of each player, if a player's score 
-//reaches 5 then declare that player as winner
-
-
-
-
-
 let playerScore = 0;
 let computerScore = 0;
+//add div element which shows the current score of each player
+const body = document.querySelector("body")
+const scoreBoard = document.createElement("div");
+
+const playerScoreElement = document.createElement("h2");
+const computerScoreElement = document.createElement("h2");
+playerScoreElement.textContent = "Player Score: " + playerScore;
+computerScoreElement.textContent = "Computer Score: " + computerScore;
+scoreBoard.appendChild(playerScoreElement);
+scoreBoard.appendChild(computerScoreElement);
+
+body.appendChild(scoreBoard);
+
 function game(e){
     let playerSelection = e.target.getAttribute("class");
     let computerSelection = computerPlay();  
@@ -144,11 +150,26 @@ function game(e){
                 break;
         case -1: computerScore++;
                 break;
-    }  
+    } 
+    playerScoreElement.textContent = "Player Score: " + playerScore;
+    computerScoreElement.textContent = "Computer Score: " + computerScore; 
+    checkWinner();
 }
 
-function declareWinner(playerScore, computerScore){
-    if(playerScore>computerScore) console.log("You Won the Game!!!");
-    else if(playerScore<computerScore) console.log("Computer Won the Game!");
-    else console.log("The Game Ended in a Draw!!");
+
+//At the end of every round keep the score of each player, if a player's score 
+//reaches 5 then declare that player as winner
+function checkWinner(){
+    if(playerScore == 5){
+        body.removeChild(gameContainer);
+        const winner = document.createElement("h1");
+        winner.textContent = "You Won the Game!!!";
+        body.appendChild(winner);
+    }
+    else if(computerScore == 5){
+        body.removeChild(gameContainer);
+        const winner = document.createElement("h1");
+        winner.textContent = "Computer Won the Game!";
+        body.appendChild(winner);
+    }
 }
