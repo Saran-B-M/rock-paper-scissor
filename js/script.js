@@ -89,32 +89,62 @@ function playRound(playerSelection, computerSelection){
     }
 }
 
+//Create three buttons for each selection and call the play round function 
+//every time the buttons are pressed
+//Create a div that shows the score of each player and declare a winner 
+//once one player reaches five points first
 
-function game(){
-    let playerScore = 0;
-    let computerScore = 0;
-    for(let i=0; i<5; i++){
 
-        let playerSelection;
-        playerSelection 
+//create 3 buttons and add class add text content with names rock, paper and
+//scissor for each button 
+const rockBtn = document.createElement("button");
+const paperBtn = document.createElement("button");
+const scissorBtn = document.createElement("button");
 
-         do {
-        playerSelection = prompt("Rock or Paper or Scissor");
-        if(playerSelection != null) playerSelection = playerSelection.toLowerCase();
-        } while(!(playerSelection === "rock" || playerSelection === "paper" || playerSelection === "scissor"));
-        let computerSelection = computerPlay();
+rockBtn.textContent = "ROCK";
+rockBtn.classList.add("rock");
+paperBtn.textContent = "PAPER";
+paperBtn.classList.add("paper");
+scissorBtn.textContent = "SCISSOR";
+scissorBtn.classList.add("scissor");
 
-        let result = playRound(playerSelection, computerSelection);
+//Add the buttons to the DOM
+const body = document.querySelector("body");
+body.appendChild(rockBtn);
+body.appendChild(paperBtn);
+body.appendChild(scissorBtn);
 
-        switch(result){
-            case 1: playerScore++;
-                    break;
-            case -1: computerScore++;
-                    break;
-        }  
+//for each button add the click event listener which and also pass the button
+//that got clicked
+function eventListener(btn){
+    btn.addEventListener("click", game);
+}
 
-    }
-    declareWinner(playerScore, computerScore);
+eventListener(rockBtn);
+eventListener(paperBtn);
+eventListener(scissorBtn);
+
+//with the help of the class of button clicked assign playerSelection and play 
+//round
+//At the end of every round keep the score of each player, if a player's score 
+//reaches 5 then declare that player as winner
+
+
+
+
+
+let playerScore = 0;
+let computerScore = 0;
+function game(e){
+    let playerSelection = e.target.getAttribute("class");
+    let computerSelection = computerPlay();  
+    let result = playRound(playerSelection, computerSelection);
+    switch(result){
+        case 1: playerScore++;
+                break;
+        case -1: computerScore++;
+                break;
+    }  
 }
 
 function declareWinner(playerScore, computerScore){
